@@ -1,0 +1,7 @@
+Flask==2.3.2
+Flask_GraphQL==2.0.1
+flask_sqlalchemy==3.0.3
+graphene==2.1.9
+graphene_sqlalchemy==2.3.0
+python-dotenv==1.0.0
+SQLAlchemy==1.4.48
