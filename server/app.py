@@ -331,24 +331,20 @@ class Mutation(graphene.ObjectType):
     update_link_stack = UpdateLinkStack.Field()
     change_password = ChangePassword.Field()
 
-# Create Query class and its resolvers
 class Query(graphene.ObjectType):
     users = graphene.List(UserObject)
     links = graphene.List(LinkObject)   
     link_stacks = graphene.List(LinkStackObject)
 
-    # Resolve user request
     def resolve_users(self, info):
         print("Resolving users...")
         query = UserObject.get_query(info)
         return query.all()
     
-    # Resolve links request
     def resolve_links(self, info):
         query = LinkObject.get_query(info)
         return query.all()
     
-    # Resolve LinkStack request
     def resolve_link_stacks(self, info):
         query = LinkStackObject.get_query(info)
         return query.all()
