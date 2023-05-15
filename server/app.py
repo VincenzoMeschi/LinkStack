@@ -23,7 +23,7 @@ from flask_graphql_auth import (
     get_jwt_identity,
     create_access_token,
     create_refresh_token,
-    query_header_jwt_required,
+    query_jwt_required,
     mutation_jwt_refresh_token_required,
     mutation_jwt_required
 )
@@ -61,47 +61,35 @@ with app.app_context():
 def before_request():
     g.db = db.session
 
-# Create UserObject model
-class UserObject(SQLAlchemyObjectType):
-    class Meta:
-        model = Base.classes.appuser
-
-# Create LinkObject model
 class LinkObject(SQLAlchemyObjectType):
     class Meta:
         model = Base.classes.link
 
-# Create LinkStackObject model
 class LinkStackObject(SQLAlchemyObjectType):
+    links = graphene.List(LinkObject)
+
     class Meta:
         model = Base.classes.linkstack
+
+    def resolve_links(self, info):
+        link_query = LinkObject.get_query(info)
+        return link_query.filter_by(linkstack_id=self.id).all()
+
+class UserObject(SQLAlchemyObjectType):
+    linkstacks = graphene.List(LinkStackObject)
+
+    class Meta:
+        model = Base.classes.appuser
+
+    def resolve_linkstacks(self, info):
+        linkstack_query = LinkStackObject.get_query(info)
+        return linkstack_query.filter_by(userEmail=self.userEmail).all()
+
 
 # Create PasswordObject model
 class PasswordObject(SQLAlchemyObjectType):
     class Meta:
         model = Base.classes.password
-
-# Create Query class and its resolvers
-class Query(graphene.ObjectType):
-    users = graphene.List(UserObject)
-    links = graphene.List(LinkObject)   
-    link_stacks = graphene.List(LinkStackObject)
-
-    # Resolve user request
-    def resolve_users(self, info):
-        print("Resolving users...")
-        query = UserObject.get_query(info)
-        return query.all()
-    
-    # Resolve links request
-    def resolve_links(self, info):
-        query = LinkObject.get_query(info)
-        return query.all()
-    
-    # Resolve LinkStack request
-    def resolve_link_stacks(self, info):
-        query = LinkStackObject.get_query(info)
-        return query.all()
     
 
 # Handle user mutations (create new user)
@@ -148,6 +136,32 @@ class CreateUser(graphene.Mutation):
 
         ok = True
         return CreateUser(user=user_instance, ok=ok)
+    
+class UserLogin(graphene.Mutation):
+    class Arguments:
+        useremail = graphene.String()
+        password = graphene.String()
+
+    access_token = graphene.String()
+    refresh_token = graphene.String()
+
+    def mutate(self, info, useremail, password):
+        user_query = UserObject.get_query(info)
+        user = user_query.filter_by(useremail=useremail).first()
+
+        if not user:
+            raise Exception('Authentication Failure: User is not registered')
+
+        password_bytes = password.encode('utf-8')
+        hashed_password = bcrypt.hashpw(password_bytes, user.passhash.encode('utf-8'))
+
+        if hashed_password != user.passhash.encode('utf-8'):
+            raise Exception('Authentication Failure: Invalid password')
+
+        access_token = create_access_token(identity=useremail)
+        refresh_token = create_refresh_token(identity=useremail)
+
+        return UserLogin(access_token=access_token, refresh_token=refresh_token)
 
 
 class CreateLink(graphene.Mutation):
@@ -163,51 +177,113 @@ class CreateLink(graphene.Mutation):
     ok = graphene.Boolean()
     link = graphene.Field(lambda: LinkObject)
 
+    @mutation_jwt_required
     def mutate(root, info, linkid, linkhttp, linkplatform, linknickname, linktitle, linkdesc, stackid):
+
         link_model = Base.classes.link
         link_instance = link_model(linkid=linkid, linkhttp=linkhttp, linkplatform=linkplatform, linknickname=linknickname, linktitle=linktitle, linkdesc=linkdesc, stackid=stackid)
         db.session.add(link_instance)
         db.session.commit()
         ok = True
         return CreateLink(link=link_instance, ok=ok)
+    
+class UpdateLink(graphene.Mutation):
+    class Arguments:
+        linkid = graphene.String(required=True)
+        linkhttp = graphene.String()
+        linkplatform = graphene.String()
+        linknickname = graphene.String()
+        linktitle = graphene.String()
+        linkdesc = graphene.String()
+        stackid = graphene.String()
+
+    ok = graphene.Boolean()
+    link = graphene.Field(lambda: LinkObject)
+
+    @mutation_jwt_required
+    def mutate(root, info, linkid, linkhttp=None, linkplatform=None, linknickname=None, linktitle=None, linkdesc=None, stackid=None):
+        link_model = Base.classes.link
+        link_instance = db.session.query(link_model).filter_by(linkid=linkid).first()
+
+        if not link_instance:
+            raise Exception('Error: No link found with the provided linkid')
+
+        if linkhttp:
+            link_instance.linkhttp = linkhttp
+        if linkplatform:
+            link_instance.linkplatform = linkplatform
+        if linknickname:
+            link_instance.linknickname = linknickname
+        if linktitle:
+            link_instance.linktitle = linktitle
+        if linkdesc:
+            link_instance.linkdesc = linkdesc
+        if stackid:
+            link_instance.stackid = stackid
+
+        db.session.commit()
+        ok = True
+        return UpdateLink(link=link_instance, ok=ok)
 
 
 class CreateLinkStack(graphene.Mutation):
     class Arguments:
-        stackid = graphene.String(required=True)
-        stacktitle = graphene.String(required=True)
-        stackdesc = graphene.String(required=True)
-        stacktheme = graphene.String(default_value="default")
-        useremail = graphene.String(required=True)
+        stacktitle = graphene.String()
+        stackdesc = graphene.String()
+        stacktheme = graphene.String()
 
-    ok = graphene.Boolean()
     linkstack = graphene.Field(lambda: LinkStackObject)
 
-    def mutate(root, info, stackid, stacktitle, stackdesc, useremail, stacktheme=None):
-        linkstack_model = Base.classes.linkstack
-        linkstack_instance = linkstack_model(stackId=stackid, stackTitle=stacktitle, stackDesc=stackdesc, stackTheme=stacktheme, userEmail=useremail)
-        db.session.add(linkstack_instance)
+    @mutation_jwt_required
+    def mutate(self, info, stacktitle, stackdesc, stacktheme):
+        useremail = get_jwt_identity()
+        linkstack = LinkStackObject(stackTitle=stacktitle, stackDesc=stackdesc, stackTheme=stacktheme, userEmail=useremail)
+        db.session.add(linkstack)
         db.session.commit()
-        ok = True
-        return CreateLinkStack(linkstack=linkstack_instance, ok=ok)
+        return CreateLinkStack(linkstack=linkstack)
     
-class CreatePassword(graphene.Mutation):
+class UpdateLinkStack(graphene.Mutation):
     class Arguments:
-        passhash = graphene.String(required=True)
+        stackid = graphene.String()
+        stacktitle = graphene.String()
+        stackdesc = graphene.String()
+        stacktheme = graphene.String()
 
-    ok = graphene.Boolean()
-    password = graphene.Field(lambda: PasswordObject)
+    linkstack = graphene.Field(lambda: LinkStackObject)
 
-    def mutate(root, info, passhash):
-        password_model = Base.classes.password
-        password_instance = password_model(
-            passHash=passhash, 
-            passDate=datetime.datetime.utcnow()
-        )
-        db.session.add(password_instance)
+    @mutation_jwt_required
+    def mutate(self, info, stackid, stacktitle=None, stackdesc=None, stacktheme=None):
+        useremail = get_jwt_identity()
+        linkstack = LinkStackObject.query.filter_by(stackId=stackid, userEmail=useremail).first()
+        
+        if linkstack is None:
+            raise Exception('Error: No linkstack found with the given id for this user')
+
+        if stacktitle is not None:
+            linkstack.stackTitle = stacktitle
+
+        if stackdesc is not None:
+            linkstack.stackDesc = stackdesc
+
+        if stacktheme is not None:
+            linkstack.stackTheme = stacktheme
+
         db.session.commit()
-        ok = True
-        return CreatePassword(password=password_instance, ok=ok)
+        return UpdateLinkStack(linkstack=linkstack)
+
+class ViewLinkStack(graphene.ObjectType):
+    class Arguments:
+        stackid = graphene.String()
+
+    linkstack = graphene.Field(lambda: LinkStackObject)
+
+    def resolve_linkstack(self, info, stackid):
+        linkstack = LinkStackObject.query.filter_by(stackId=stackid).first()
+
+        if linkstack is None:
+            raise Exception('Error: No linkstack found with the given id')
+
+        return linkstack
 
 class ChangePassword(graphene.Mutation):
     class Arguments:
@@ -246,37 +322,40 @@ class ChangePassword(graphene.Mutation):
         ok = True
         return ChangePassword(password=new_password_instance, ok=ok)
     
-class AuthMutation(graphene.Mutation):
-    access_token = graphene.String()
-    refresh_token = graphene.String()
-
-    class Arguments:
-        useremail = graphene.String()
-        password = graphene.String()
-    
-    def mutate(self, info, useremail, password):
-        user_query = UserObject.get_query(info)
-        user = user_query.filter_by(useremail=useremail).first()
-
-        if not user:
-            raise Exception('Authentication Failure: User is not registered')
-
-        password_bytes = password.encode('utf-8')
-        hashed_password = bcrypt.hashpw(password_bytes, user.passhash.encode('utf-8'))
-
-        if hashed_password != user.passhash.encode('utf-8'):
-            raise Exception('Authentication Failure: Invalid password')
-
-        return AuthMutation(
-            access_token=create_access_token(useremail),
-            refresh_token=create_refresh_token(useremail)
-        )
-    
 class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
+    user_login = UserLogin.Field()
     create_link = CreateLink.Field()
+    update_link = UpdateLink.Field()
     create_link_stack = CreateLinkStack.Field()
-    auth = AuthMutation.Field()
+    update_link_stack = UpdateLinkStack.Field()
+    change_password = ChangePassword.Field()
+
+# Create Query class and its resolvers
+class Query(graphene.ObjectType):
+    users = graphene.List(UserObject)
+    links = graphene.List(LinkObject)   
+    link_stacks = graphene.List(LinkStackObject)
+
+    # Resolve user request
+    def resolve_users(self, info):
+        print("Resolving users...")
+        query = UserObject.get_query(info)
+        return query.all()
+    
+    # Resolve links request
+    def resolve_links(self, info):
+        query = LinkObject.get_query(info)
+        return query.all()
+    
+    # Resolve LinkStack request
+    def resolve_link_stacks(self, info):
+        query = LinkStackObject.get_query(info)
+        return query.all()
+
+    @query_jwt_required
+    def resolve_protected(self, info):
+        return 
 
 # Create schema from Query and Mutation classes
 schema = graphene.Schema(query=Query, mutation=Mutation)
