@@ -43,6 +43,7 @@ SECRET = os.getenv("JWT_SECRET")
 
 # Config the server with the env variables
 app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = f"{SECRET}"
 
 # Connect the database to the Flask server
