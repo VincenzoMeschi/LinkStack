@@ -1,20 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { IsLoggedInContext } from "../../App";
+import { AuthContext } from "../../App"; // import from App
 import "./Navbar.css";
 
-const Navbar = ({ onLogin, onLogout }) => {
-  const isLoggedIn = useContext(IsLoggedInContext);
-
-  const handleLogin = (event) => {
-    event.preventDefault();
-    onLogin();
-  };
-
-  const handleLogout = (event) => {
-    event.preventDefault();
-    onLogout();
-  };
+const Navbar = () => {
+  const { isLoggedIn, handleLogin, handleLogout } = useContext(AuthContext); // extract handleLogin, handleLogout from context
 
   return (
     <nav>
@@ -41,7 +31,7 @@ const Navbar = ({ onLogin, onLogout }) => {
         ) : (
           <>
             <li>
-              <Link to="/dashboard" className="nav-item" onClick={handleLogin}>
+              <Link to="/login" className="nav-item" onClick={handleLogin}>
                 Login
               </Link>
             </li>

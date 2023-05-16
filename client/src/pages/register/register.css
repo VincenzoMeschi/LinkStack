@@ -1,0 +1,85 @@
+.center-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--alice-blue);
+  border-radius: 10px;
+  padding: 2em;
+  width: min-content;
+  border: 5px solid var(--apple-green);
+}
+
+.register-container h1 {
+  font-family: "Montserrat";
+  font-weight: 800;
+  font-size: 2rem;
+  color: var(--lapis-lazuli);
+  margin-bottom: 1em;
+}
+
+form .register-form-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+  width: 100%;
+}
+
+form .register-form-inputs label {
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  padding-bottom: 0.4em;
+  color: var(--lapis-lazuli);
+}
+
+form .input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+form .input-field input {
+  border: 1px solid var(--lapis-lazuli);
+  border-radius: 10px;
+  padding: 0.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--lapis-lazuli);
+}
+
+.email-container {
+  grid-column: 1 / 3;
+}
+
+.password-container {
+  grid-column: 1 / 3;
+}
+
+.register-form-inputs button {
+  grid-column: 1 / 3;
+  border: 1px solid var(--lapis-lazuli);
+  border-radius: 10px;
+  padding: 0.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--lapis-lazuli);
+  background-color: var(--alice-blue);
+  margin-top: 1em;
+}
+
+.register-form-inputs button:hover {
+  background-color: var(--lapis-lazuli);
+  color: var(--alice-blue);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}

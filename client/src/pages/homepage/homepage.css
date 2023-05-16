@@ -2,15 +2,15 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  min-height: 90vh;
-  background-color: var(--lapis-lazuli);
-  padding: 6em 3em;
+  height: calc(100vh);
+  background: var(--hero-background);
+  background: var(--hero-background-gradient);
 }
 
 .hero-text {
   font-family: "Montserrat";
   color: var(--alice-blue);
-  padding: 0 4em;
+  padding: 0 5% 0 10%;
 }
 
 .hero-text span {
@@ -50,8 +50,8 @@ main {
 }
 
 .hero-img img {
-  margin: 0 auto;
   max-width: 100%;
+  margin: 0 auto;
 }
 .hero-img {
   display: flex;

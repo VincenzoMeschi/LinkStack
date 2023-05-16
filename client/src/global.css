@@ -5,10 +5,12 @@
   --alice-blue: #ebf2faff;
   --asparagus: #679436ff;
   --apple-green: #a5be00ff;
+  --hero-background: rgb(2, 0, 36);
+  --hero-background-gradient: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(5, 102, 141, 1) 50%, rgba(66, 122, 161, 1) 100%);
 }
-/* Style Reset */
+
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }

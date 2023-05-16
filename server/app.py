@@ -1,6 +1,7 @@
 # Flask Imports
 from flask import Flask, g
 import datetime
+from flask_cors import CORS
 
 # SQL Alchemy Imports
 from flask_sqlalchemy import SQLAlchemy
@@ -31,6 +32,7 @@ import bcrypt
 
 # Create Flask app
 app = Flask(__name__)
+CORS(app)
 
 # Load enviroment variables
 load_dotenv()
