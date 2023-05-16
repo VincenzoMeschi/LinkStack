@@ -1,5 +1,60 @@
 main {
-  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  min-height: 90vh;
   background-color: var(--lapis-lazuli);
-  padding-top: 6em;
+  padding: 6em 3em;
+}
+
+.hero-text {
+  font-family: "Montserrat";
+  color: var(--alice-blue);
+  padding: 0 4em;
+}
+
+.hero-text span {
+  font-weight: 300;
+  font-size: 1.3rem;
+  color: var(--apple-green);
+}
+
+.hero-text h1 {
+  font-weight: 800;
+  font-size: 3.5rem;
+  margin: 1rem 0;
+}
+
+.hero-text h1 span {
+  color: var(--apple-green);
+  font-weight: 800;
+  font-size: 3.5rem;
+  margin: 1rem 0;
+}
+
+.hero-text p {
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.hero-text h3 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  color: var(--apple-green);
+}
+
+.hero-text .main-btn {
+  margin-top: 3rem;
+}
+
+.hero-img img {
+  margin: 0 auto;
+  max-width: 100%;
+}
+.hero-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

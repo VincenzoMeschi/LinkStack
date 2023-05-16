@@ -1,7 +1,19 @@
 .main-btn {
   display: block;
-  border: 1px solid red;
+  border: 1px solid var(--alice-blue);
   border-radius: 10px;
   max-width: fit-content;
   padding: 1.5em 2.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--alice-blue);
+  text-decoration: none;
+}
+
+.main-btn:hover {
+  background-color: var(--alice-blue);
+  color: var(--lapis-lazuli);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
 }
