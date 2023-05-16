@@ -1,0 +1,14 @@
+/* CSS HEX */
+:root {
+  --lapis-lazuli: #05668dff;
+  --ucla-blue: #427aa1ff;
+  --alice-blue: #ebf2faff;
+  --asparagus: #679436ff;
+  --apple-green: #a5be00ff;
+}
+/* Style Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

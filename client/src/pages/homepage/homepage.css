@@ -1,0 +1,5 @@
+main {
+  min-height: 100vh;
+  background-color: var(--lapis-lazuli);
+  padding-top: 6em;
+}

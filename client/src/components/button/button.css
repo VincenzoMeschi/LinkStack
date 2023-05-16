@@ -1,0 +1,7 @@
+.main-btn {
+  display: block;
+  border: 1px solid red;
+  border-radius: 10px;
+  max-width: fit-content;
+  padding: 1.5em 2.5em;
+}
