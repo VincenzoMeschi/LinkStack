@@ -2,12 +2,14 @@
 :root {
   --lapis-lazuli: #05668dff;
   --ucla-blue: #427aa1ff;
-  --alice-blue: #ebf2faff;
-  --asparagus: #679436ff;
-  --apple-green: #a5be00ff;
-  --charcoal: rgb(29, 29, 29);
+  --alice-blue: #f6f6f6;
+  --faded-white: #969696;
+  --asparagus: #365a08;
+  --apple-green: #72eb3a;
+  --light-charcoal: #2b2b2b;
+  --charcoal: #1b1d24;
   --hero-background: rgb(2, 0, 36);
-  --hero-background-gradient: linear-gradient(0deg, rgb(23, 23, 23) 0%, rgb(29, 29, 29) 50%, rgb(40, 40, 40) 100%);
+  --hero-background-gradient: linear-gradient(0deg, rgb(23, 23, 23) 0%, #1b1d24 50%, rgb(28, 28, 28) 100%);
 }
 
 * {
