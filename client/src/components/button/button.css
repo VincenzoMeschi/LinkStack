@@ -12,8 +12,7 @@
 }
 
 .main-btn:hover {
-  background-color: var(--alice-blue);
-  color: var(--lapis-lazuli);
+  background-color: var(--asparagus);
   transition: 0.3s ease-in-out;
   cursor: pointer;
 }
