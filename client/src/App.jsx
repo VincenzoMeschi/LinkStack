@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import HomePage from "./pages/homepage/HomePage";
 import Dashboard from "./pages/dashboard/Dashboard";
-import LinkStack from "./pages/Linkstack";
+import LinkStack from "./pages/linkstack/Linkstack";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import NotFound from "./pages/NotFound";
