@@ -37,6 +37,7 @@ const Register = () => {
       <div className="center-form-wrapper">
         <div className="register-container">
           <h1>Register</h1>
+          <h4>Sign up for a free account</h4>
           <form onSubmit={handleSubmit}>
             <div className="register-form-inputs">
               <div className="fname-container input-field">

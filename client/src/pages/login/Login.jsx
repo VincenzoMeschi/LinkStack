@@ -42,6 +42,7 @@ const Login = () => {
       <div className="center-form-wrapper">
         <div className="login-container">
           <h1>Login</h1>
+          <h4>Sign into your account to continue</h4>
           <form onSubmit={handleSubmit}>
             <div className="login-form-inputs">
               <div className="input-field">
@@ -56,6 +57,10 @@ const Login = () => {
               <button type="submit">Login</button>
             </div>
           </form>
+          <div className="register-link">
+            <p>Don't have an account?</p>
+            <a href="/register">Register Now</a>
+          </div>
         </div>
       </div>
     </main>

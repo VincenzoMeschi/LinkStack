@@ -10,32 +10,39 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   border-radius: 10px;
   padding: 2em;
   width: min-content;
-  border: 5px solid var(--apple-green);
+  background-color: var(--light-charcoal);
 }
 
 .login-container h1 {
   font-family: "Montserrat";
-  font-weight: 800;
+  font-weight: 700;
   font-size: 2rem;
-  color: var(--apple-green);
-  margin-bottom: 1em;
+  color: var(--alice-blue);
+  margin-bottom: 0.2em;
+}
+
+.login-container h4 {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--faded-white);
+  margin-bottom: 2em;
 }
 
 form .login-form-inputs {
-  display: block;
   width: 100%;
 }
 
 form .login-form-inputs label {
   font-family: "Montserrat";
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1rem;
   padding-bottom: 0.4em;
-  color: var(--apple-green);
+  color: var(--faded-white);
 }
 
 form .login-form-inputs .input-field {
@@ -45,9 +52,8 @@ form .login-form-inputs .input-field {
 }
 
 form .login-form-inputs .input-field input {
-  border: 2px solid var(--apple-green);
-  border-radius: 10px;
   background-color: var(--charcoal);
+  border: none;
   padding: 0.5em;
   font-family: "Montserrat";
   font-weight: 600;
@@ -58,22 +64,39 @@ form .login-form-inputs .input-field input {
 
 .login-form-inputs button {
   display: block;
-  border: 1.5px solid var(--apple-green);
-  border-radius: 10px;
-  padding: 0.5em;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5em 1.5em;
   font-family: "Montserrat";
   font-weight: 600;
   font-size: 1rem;
   color: var(--alice-blue);
-  background-color: var(--charcoal);
-  margin: 35px auto 0 auto;
-  width: 75%;
+  background-color: var(--apple-green);
+  margin-top: 1.5em;
 }
 
 .login-form-inputs button:hover {
-  border: 1.5px solid var(--lapis-lazuli);
-  background-color: var(--apple-green);
-  color: var(--alice-blue);
+  background-color: var(--asparagus);
   transition: 0.3s ease-in-out;
   cursor: pointer;
+}
+
+.login-container .register-link {
+  display: inline-block;
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--faded-white);
+  margin-top: 3.5em;
+  width: 100%;
+}
+
+.login-container .register-link a {
+  color: var(--apple-green);
+  text-decoration: none;
+}
+
+.login-container .register-link a:hover {
+  color: var(--lapis-lazuli);
+  transition: 0.3s ease-in-out;
 }
