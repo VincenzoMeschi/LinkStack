@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useMutation, gql } from "@apollo/client";
-import { AuthContext } from "../../context/auth";
+import { AuthContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 const USER_LOGIN = gql`
@@ -8,22 +9,31 @@ const USER_LOGIN = gql`
     userLogin(useremail: $useremail, password: $password) {
       accessToken
       refreshToken
+      useremail
     }
   }
 `;
 
-  const Login = () => {
-  const [email, setEmail] = useState("");
+const Login = () => {
+  const [useremail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userLogin, { data }] = useMutation(USER_LOGIN);
+  const { handleLogin } = useContext(AuthContext);
+  const [userLogin] = useMutation(USER_LOGIN);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    userLogin({ variables: { useremail: email, password: password } }).then((response) => {
-      localStorage.setItem("accessToken", response.data.userLogin.accessToken);
-      localStorage.setItem("refreshToken", response.data.userLogin.refreshToken);
-    });
-    setEmail("");
+    try {
+      const response = await userLogin({ variables: { useremail: useremail, password: password } });
+      const { accessToken, refreshToken } = response.data.userLogin;
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      handleLogin({ useremail });
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
+    setUserEmail("");
     setPassword("");
   };
 
@@ -36,7 +46,7 @@ const USER_LOGIN = gql`
             <div className="login-form-inputs">
               <div className="input-field">
                 <label htmlFor="email">Email</label>
-                <input type="email" placeholder="john@example.com" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="email" placeholder="john@example.com" id="email" value={useremail} onChange={(e) => setUserEmail(e.target.value)} />
               </div>
 
               <div className="input-field">
