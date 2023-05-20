@@ -1,0 +1,35 @@
+.user-linkstack-card {
+  padding: 2rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  height: 200px;
+  transition: 0.3s ease-in-out;
+  background-color: var(--light-charcoal);
+  text-decoration: none;
+}
+
+.user-linkstack-card:hover {
+  transform: scale(1.05);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.user-linkstack-card h3 {
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  color: var(--alice-blue);
+}
+
+.user-linkstack-card p {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--faded-white);
+  margin-top: 1em;
+}
