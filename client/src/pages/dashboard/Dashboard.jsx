@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useMutation, gql, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../App";
+import LinkStackCard from "../../components/linkstack-card/LinkStackCard";
 import "./dashboard.css";
 
 const CREATE_LINKSTACK = gql`
@@ -22,6 +23,7 @@ const GET_USER_LINKSTACKS = gql`
       stacktitle
       stackdesc
       stacktheme
+      stackid
     }
   }
 `;
@@ -68,12 +70,8 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="dashboard-grid">
-        {data?.viewUserLinkStacks.map((stack, index) => (
-          <div className="linkstack-card" key={index}>
-            <h3>{stack.stacktitle}</h3>
-            <p>{stack.stackdesc}</p>
-            <p>{stack.stacktheme}</p>
-          </div>
+        {data?.viewUserLinkStacks.map((stack) => (
+          <LinkStackCard stacktitle={stack.stacktitle} stackdesc={stack.stackdesc} stackid={stack.stackid}/>
         ))}
         {formVisible ? (
           <form onSubmit={handleSubmit} className="linkstack-form">
@@ -84,8 +82,8 @@ const Dashboard = () => {
           </form>
         ) : (
           <div className="linkstack-card add-linkstack" onClick={() => setFormVisible(true)}>
-            <p>Create a LinkStack</p>
-            <span>+</span>
+            <h3>Create LinkStack</h3>
+            <p>+</p>
           </div>
         )}
       </div>
