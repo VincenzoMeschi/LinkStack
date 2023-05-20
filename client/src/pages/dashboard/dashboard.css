@@ -1,0 +1,102 @@
+/* dashboard.css */
+
+.dashboard-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 60px 10px;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--charcoal);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.linkstack-card {
+  background-color: var(--alice-blue);
+  padding: 2rem;
+  border-radius: 10px;
+  border: 1px solid var(--lapis-lazuli);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  transition: 0.3s ease-in-out;
+}
+
+.linkstack-card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+
+.add-linkstack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed var(--lapis-lazuli);
+}
+
+.add-linkstack span {
+  font-size: 3rem;
+  color: var(--lapis-lazuli);
+}
+
+.linkstack-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.linkstack-form input {
+  border: 1px solid var(--lapis-lazuli);
+  border-radius: 10px;
+  padding: 0.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 0.5em;
+  color: var(--lapis-lazuli);
+}
+
+.linkstack-form textarea {
+  border: 1px solid var(--lapis-lazuli);
+  border-radius: 10px;
+  padding: 0.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 0.85rem;
+  width: 100%;
+  margin-bottom: 0.5em;
+  color: var(--lapis-lazuli);
+  max-width: 210px;
+  resize: none;
+}
+
+.linkstack-form button {
+  display: block;
+  border: 1.5px solid var(--lapis-lazuli);
+  border-radius: 10px;
+  padding: 0.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--alice-blue);
+  background-color: var(--lapis-lazuli);
+  width: 100%;
+}
+
+.linkstack-form button:hover {
+  border: 1.5px solid var(--alice-blue);
+  background-color: var(--alice-blue);
+  color: var(--lapis-lazuli);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
