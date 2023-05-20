@@ -168,7 +168,7 @@ class UserLogin(graphene.Mutation):
 
 class CreateLink(graphene.Mutation):
     class Arguments:
-        linkid = graphene.String(required=True)
+        linkid = graphene.String
         linkhttp = graphene.String(required=True)
         linkplatform = graphene.String(required=True)
         linknickname = graphene.String(required=True)
@@ -290,6 +290,11 @@ class ViewLinkStack(graphene.ObjectType):
 
         if linkstack is None:
             raise Exception('Error: No linkstack found with the given id')
+        
+        link_query = LinkObject.get_query(info)
+        links = link_query.filter_by(stackid=stackid).all()
+
+        linkstack.links = links
 
         return linkstack
 
