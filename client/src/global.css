@@ -5,8 +5,9 @@
   --alice-blue: #ebf2faff;
   --asparagus: #679436ff;
   --apple-green: #a5be00ff;
+  --charcoal: rgb(29, 29, 29);
   --hero-background: rgb(2, 0, 36);
-  --hero-background-gradient: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(5, 102, 141, 1) 50%, rgba(66, 122, 161, 1) 100%);
+  --hero-background-gradient: linear-gradient(0deg, rgb(23, 23, 23) 0%, rgb(29, 29, 29) 50%, rgb(40, 40, 40) 100%);
 }
 
 * {
