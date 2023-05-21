@@ -1,6 +1,6 @@
-// src/components/Register.js
 import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
+import { Link } from "react-router-dom";
 import "./register.css";
 
 const CREATE_USER = gql`
@@ -59,6 +59,10 @@ const Register = () => {
                 <label htmlFor="password">Password</label>
                 <input type="password" placeholder="********" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
+
+              <Link className="already-have-account" to="/login">
+                Already have an account? Login
+              </Link>
 
               <button type="submit">Register</button>
             </div>

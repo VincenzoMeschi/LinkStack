@@ -72,6 +72,20 @@ form .register-form-inputs .input-field input {
   grid-column: 1 / 3;
 }
 
+.already-have-account {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--apple-green);
+  grid-column: 1 / 3;
+}
+
+.already-have-account:hover {
+  color: var(--asparagus);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
 .register-form-inputs button {
   display: block;
   border: none;
