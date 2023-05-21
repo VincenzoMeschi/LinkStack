@@ -145,8 +145,6 @@ const LinkStack = () => {
   };
 
   const handleDeleteLink = async (link) => {
-    console.log(link);
-    console.log(link.linkid);
     try {
       await deleteLink({ variables: { linkid: link.linkid } });
     } catch (error) {
@@ -155,7 +153,6 @@ const LinkStack = () => {
   };
 
   const handleDeleteLinkStack = async (stack) => {
-    console.log(stack.stackid);
     try {
       await deleteLinkStack({ variables: { stackid: stack.stackid } });
       navigate("/dashboard");
