@@ -1,0 +1,296 @@
+.linkstack-background {
+  padding: 100px 10px;
+  height: fit-content;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--charcoal);
+}
+
+.linkstack-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.linkstack-container h1 {
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 3.5rem;
+  color: var(--alice-blue);
+  margin-bottom: 0.2em;
+}
+
+.linkstack-container .linkstack-description {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--faded-white);
+  margin-bottom: 2em;
+}
+
+.linkstack-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.linkstack-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  margin-bottom: 1em;
+  transition: 0.3s ease-in-out;
+  background-color: var(--light-charcoal);
+  text-decoration: none;
+}
+
+.linkstack-link:hover {
+  transform: scale(1.02);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.linkstack-link .link-row-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.linkstack-link a {
+  display: block;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+}
+
+.linkstack-link .link-row-1 h3 {
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  color: var(--alice-blue);
+  margin-right: 0.85em;
+}
+
+.linkstack-link .link-row-1 h6 {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--faded-white);
+}
+
+.linkstack-link p {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--faded-white);
+  margin-top: 1em;
+  max-width: 90%;
+}
+
+.linkstack-link .link-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: end;
+}
+
+.linkstack-link .link-right .editLinkButton {
+  display: block;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5em 1.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 0.5rem;
+  color: var(--alice-blue);
+  background-color: var(--asparagus);
+  margin: 0 1em;
+}
+
+.linkstack-link .link-right .editLinkButton:hover {
+  background-color: var(--apple-green);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.linkstack-link .link-right .deleteLinkButton {
+  display: block;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5em 1.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 0.5rem;
+  color: var(--alice-blue);
+  background-color: var(--lapis-lazuli);
+}
+
+.linkstack-link .link-right .deleteLinkButton:hover {
+  background-color: var(--ucla-blue);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.linkstack-link .link-right h5 {
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--alice-blue);
+}
+
+.linkstack-link .link-right .modify-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+
+/* button element with class create-link */
+.create-link {
+  display: block;
+  border: 2.5px dashed var(--asparagus);
+  border-radius: 10px;
+  padding: 0.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--asparagus);
+  background-color: transparent;
+  width: 100%;
+  cursor: pointer;
+}
+
+.create-link:hover {
+  border: 2.5px dashed var(--apple-green);
+  color: var(--apple-green);
+  transition: 0.3s ease-in-out;
+}
+
+.linkstack-container .link-form {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.linkstack-container .link-form .link-form-inputs {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-bottom: 2em;
+}
+
+.linkstack-container .link-form .input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.linkstack-container .link-form .input-field label {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 1rem;
+  padding-bottom: 0.4em;
+  color: var(--faded-white);
+}
+
+.linkstack-container .link-form .input-field input {
+  background-color: var(--charcoal);
+  border: 2px solid var(--lapis-lazuli);
+  padding: 0.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--alice-blue);
+}
+
+.linkstack-container .link-form .input-field textarea {
+  background-color: var(--charcoal);
+  border: 2px solid var(--lapis-lazuli);
+  padding: 0.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--alice-blue);
+  resize: none;
+  height: 100px;
+}
+
+.linkstack-container .link-form .form-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.linkstack-container .link-form .form-buttons .link-form-submit {
+  display: block;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5em 1.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--alice-blue);
+  background-color: var(--apple-green);
+  margin-top: 1.5em;
+  margin-right: 1em;
+}
+
+.linkstack-container .link-form .form-buttons .link-form-submit:hover {
+  background-color: var(--asparagus);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.linkstack-container .link-form .form-buttons .link-form-close {
+  display: block;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5em 1.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--alice-blue);
+  background-color: var(--lapis-lazuli);
+  margin-top: 1.5em;
+}
+
+.linkstack-container .link-form .form-buttons .link-form-close:hover {
+  background-color: var(--dark-lapis-lazuli);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.delete-linkstack-button {
+  display: block;
+  border: 2px solid #820505;
+  border-radius: 10px;
+  padding: 0.5em;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #820505;
+  margin: 0 auto;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: 5em;
+}
+
+.delete-linkstack-button:hover {
+  border: 2px solid #b30000;
+  color: #b30000;
+  transition: 0.3s ease-in-out;
+}
