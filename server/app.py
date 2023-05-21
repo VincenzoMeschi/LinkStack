@@ -78,7 +78,7 @@ class LinkStackObject(SQLAlchemyObjectType):
 
     def resolve_links(self, info):
         link_query = LinkObject.get_query(info)
-        return link_query.filter_by(linkstack_id=self.id).all()
+        return link_query.filter_by(stackid=self.stackid).all()
 
 class UserObject(SQLAlchemyObjectType):
     linkstacks = graphene.List(LinkStackObject)
@@ -168,7 +168,7 @@ class UserLogin(graphene.Mutation):
 
 class CreateLink(graphene.Mutation):
     class Arguments:
-        linkid = graphene.String
+        linkid = graphene.String()
         linkhttp = graphene.String(required=True)
         linkplatform = graphene.String(required=True)
         linknickname = graphene.String(required=True)
@@ -278,26 +278,6 @@ class UpdateLinkStack(graphene.Mutation):
         db.session.commit()
         return UpdateLinkStack(linkstack=linkstack)
 
-class ViewLinkStack(graphene.ObjectType):
-    class Arguments:
-        stackid = graphene.String()
-
-    linkstack = graphene.Field(lambda: LinkStackObject)
-
-    def resolve_linkstack(self, info, stackid):
-        query = LinkStackObject.get_query(info)
-        linkstack = query.filter(LinkStackObject.model.stackid==stackid).first()
-
-        if linkstack is None:
-            raise Exception('Error: No linkstack found with the given id')
-        
-        link_query = LinkObject.get_query(info)
-        links = link_query.filter_by(stackid=stackid).all()
-
-        linkstack.links = links
-
-        return linkstack
-
 class ChangePassword(graphene.Mutation):
     class Arguments:
         useremail = graphene.String(required=True)
@@ -348,7 +328,7 @@ class Query(graphene.ObjectType):
     users = graphene.List(UserObject)
     links = graphene.List(LinkObject)   
     link_stacks = graphene.List(LinkStackObject)
-    view_link_stack = graphene.Field(ViewLinkStack)
+    view_link_stack = graphene.Field(LinkStackObject, stackid=graphene.String(required=True))
     view_user_link_stacks = graphene.List(LinkStackObject, useremail=graphene.String(required=True))
 
     def resolve_users(self, info):
@@ -363,6 +343,37 @@ class Query(graphene.ObjectType):
     def resolve_link_stacks(self, info):
         query = LinkStackObject.get_query(info)
         return query.all()
+    
+    # def resolve_view_link_stack(self, info, stackid):
+    #     query = LinkStackObject.get_query(info)
+    #     linkstack = query.filter(LinkStackObject.model.stackid==stackid).first()
+
+    #     if linkstack is None:
+    #         raise Exception('Error: No linkstack found with the given id')
+
+    #     link_query = LinkObject.get_query(info)
+    #     links = link_query.filter(LinkObject.model.stackid==stackid).all()
+
+    #     linkstack.links = links
+
+    #     return linkstack
+    
+    def resolve_view_link_stack(self, info, stackid):
+        print(f"Resolving viewLinkStack for stackid: {stackid}")
+
+        query = LinkStackObject.get_query(info)
+        linkstack = query.filter_by(stackid=stackid).first()
+
+        if linkstack is None:
+            raise Exception('Error: No linkstack found with the given id')
+
+        link_query = LinkObject.get_query(info)
+        links = link_query.filter_by(stackid=stackid).all()
+
+        linkstack.links = links
+
+        return linkstack
+
     
     def resolve_view_user_link_stacks(self, info, useremail):
         query = LinkStackObject.get_query(info)
