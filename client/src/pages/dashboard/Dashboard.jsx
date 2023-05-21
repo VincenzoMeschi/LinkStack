@@ -39,6 +39,7 @@ const Dashboard = () => {
   const { loading, error, data } = useQuery(GET_USER_LINKSTACKS, {
     variables: { useremail: user?.useremail },
     skip: !user,
+    fetchPolicy: "network-only",
   });
 
   const [createLinkStack] = useMutation(CREATE_LINKSTACK, {
@@ -71,7 +72,7 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <div className="dashboard-grid">
         {data?.viewUserLinkStacks.map((stack) => (
-          <LinkStackCard stacktitle={stack.stacktitle} stackdesc={stack.stackdesc} stackid={stack.stackid}/>
+          <LinkStackCard stacktitle={stack.stacktitle} stackdesc={stack.stackdesc} stackid={stack.stackid} />
         ))}
         {formVisible ? (
           <form onSubmit={handleSubmit} className="linkstack-form">
