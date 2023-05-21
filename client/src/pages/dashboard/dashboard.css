@@ -5,7 +5,8 @@
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 60px 10px;
-  height: 100vh;
+  height: fit-content;
+  min-height: 100vh;
   width: 100vw;
   background-color: var(--charcoal);
 }
