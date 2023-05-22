@@ -30,3 +30,9 @@ The application is currently in the final stages of development and is yet to be
 ![Dashboard](https://media.discordapp.net/attachments/1107507631515521144/1110000570372206592/Screenshot_2023-05-21_at_2.25.24_PM.png?width=2142&height=1138)
 ![LinkStack](https://media.discordapp.net/attachments/1107507631515521144/1110000570607075399/Screenshot_2023-05-21_at_2.26.10_PM.png?width=2138&height=1138)
 ![Edit Linkstack](https://media.discordapp.net/attachments/1107507631515521144/1110000570854543450/Screenshot_2023-05-21_at_2.26.26_PM.png?width=2138&height=1138)
+
+## Database
+#### E-R Diagram
+![E-R Diagram](https://media.discordapp.net/attachments/1107507631515521144/1110008897860808785/Screenshot_2023-05-21_at_7.58.57_PM.png?width=1722&height=1138)
+
+
